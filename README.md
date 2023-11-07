@@ -1,46 +1,50 @@
-# Getting Started with Create React App
+# Weather Dashboard Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Weather Dashboard Application is a React-based web application that allows users to search for current weather information by town name and view recent searches.
 
-## Available Scripts
+## Key Features
 
-In the project directory, you can run:
+- Search for weather by town name
+- Display the current weather information
+- Show a list of recent searches
+- Handle errors with user feedback
 
-### `npm start`
+## Approach
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The application uses the `fetchWeather` function from the `weatherForecastReq` service to request current weather data from the Weather API. The data fetched is then validated using Zod schemas before being used in the application.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Validation with Zod
 
-### `npm test`
+Zod schemas (`WeatherConditionSchema`, `WeatherCurrentSchema`, `WeatherLocationSchema`, `WeatherDataSchema`) are used to enforce the shape and data types of the API response. This provides a robust way of ensuring that the data conforms to the expected structure before processing.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Error Handling
 
-### `npm run build`
+Errors are managed by catching exceptions during the fetch operation. Specific HTTP errors (such as 404 for not found resources) are checked to provide meaningful feedback to the user.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### User Interaction
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Users can input a town name and initiate a search. Recent searches are clickable and will show the weather information for that specific search. An error popup component (`ErrorPopUp`) provides feedback if an error occurs during the search.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Critical Code Sections
 
-### `npm run eject`
+- `fetchWeather`: The asynchronous function that fetches weather data and handles errors.
+- `WeatherDashboard`: The main React component that renders the application UI and orchestrates user interactions and data handling.
+- `handleSearchClick`: The function that triggers the weather data fetch operation when the user clicks the search button or presses the Enter key.
+- `handleRecentSearchClick`: The callback that is triggered when the user selects a town from the recent searches.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Installation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To set up the project locally, you'll need to:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Rename `.env.example` file to `.env`.
+2. Set real api key instead of `your_api_key_here`.
+3. Run `npm install` to install dependencies.
+4. Run `npm start` to start the development server.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Usage
 
-## Learn More
+Once the application is running:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Enter a town name in the search box.
+2. Click the search button or press Enter to view the weather.
+3. Click on recent searches to quickly view weather for previously searched towns.
